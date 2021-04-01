@@ -3,7 +3,7 @@ require 'net/http'
 require 'uri'
 
 class Scraper
-  attr_accessor :content
+  attr_reader :content, :companies
 
   def initialize(page)
     uri = URI.parse("https://summerofcode.withgoogle.com/api/program/current/organization/?page=#{page}&page_size=48")
@@ -20,5 +20,11 @@ class Scraper
     @content = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
       http.request(request)
     end
+  end
+
+  def into_array
+    data_s = @content.body.partition("\"results\":[").last
+    @companies = data_s.split("{\"")
+    @companies.shift
   end
 end
