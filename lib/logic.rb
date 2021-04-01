@@ -28,3 +28,15 @@ class Scraper
     @companies.shift
   end
 end
+
+class Classifier
+  attr_reader :raw_data
+  attr_accessor :selected_data, :company_categories
+
+  def initialize(company)
+    @raw_data = company
+    @company_categories = %w[id name website_url category contact_email mailing_list irc_channel tag_line precis
+                             description tags primary_open_source_license image_url image_bg_color gplus_url twitter_url blog_url application_instructions topic_tags technology_tags proposal_tags ideas_list contact_method program_year]
+  end
+end
+# rubocop: enable Layout/LineLength
