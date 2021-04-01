@@ -63,4 +63,14 @@ class Classifier
     hash
   end
 end
+
+class Filter
+  attr_reader :all_companies
+  attr_accessor :filtered_companies
+
+  def initialize(companies)
+    @all_companies = companies
+    @filtered_companies = []
+  end
+end
 # rubocop: enable Layout/LineLength
