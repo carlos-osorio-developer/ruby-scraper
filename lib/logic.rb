@@ -1,4 +1,3 @@
-require 'byebug'
 require 'net/http'
 require 'uri'
 
