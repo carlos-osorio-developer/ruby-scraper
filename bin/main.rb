@@ -26,7 +26,6 @@ until categ_select == "\n"
   categ_list.each_with_index { |item, index| puts "Enter #{index + 1} to add \"#{item}\" category" }
   usr_selection = gets
   categ_select = case usr_selection
-                 when "5\n" then 'precis'
                  when "\n" then "\n"
                  else usr_selection.chomp.to_i
                  end
@@ -36,14 +35,12 @@ until categ_select == "\n"
     categ_list.delete_at(categ_select - 1)
   elsif categ_select == "\n"
     next
-  elsif categ_select == 'precis'
-    categories << 'precis'
-    categ_list.delete('description')
   else
     puts ''
     puts "Invalid value, please enter a number between 1 and #{categ_list.length}"
     puts ''
   end
+  categories[categories.length - 1] = 'precis' if categories.any? { |item| item == 'description' }
 end
 
 companies.each do |company|
@@ -79,11 +76,19 @@ until %w[Y y].include?(quit_user)
       filtered_dictionary << company if boolean_filter.finder(filter_keyword1) || boolean_filter.finder(filter_keyword2)
     end
   end
-  filtered_dictionary.each_with_index do |filtered_company, index|
+  if filtered_dictionary.empty?
     puts ''
-    puts "Result number #{index + 1}: "
-    filtered_company.each do |key, value|
-      puts "     #{key.to_s.capitalize} : " + value
+    puts 'There are no results for this search'
+  else
+    filtered_dictionary.each_with_index do |filtered_company, index|
+      puts ''
+      puts "Result number #{index + 1}: "
+      filtered_company.each do |key, value|
+        puts "     #{key.to_s.capitalize} : " + value
+      end
     end
   end
+  puts ''
+  puts 'Enter y/Y if you want to quit, press Enter if you want to do another search'
+  quit_user = gets.chomp
 end
