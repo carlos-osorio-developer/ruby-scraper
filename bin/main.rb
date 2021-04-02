@@ -5,6 +5,11 @@ puts ''
 puts 'Press enter to continue'
 gets
 companies = []
+comp_dictionary = []
+categories = %w[name]
+categ_list = %w[website_url category contact_email contact_method description twitter_url topic_tags technology_tags
+                proposal_tags ideas_list]
+categ_select = nil
 5.times do |page|
   current_page = Scraper.new(page + 1)
   companies += current_page.into_array
@@ -12,10 +17,6 @@ end
 
 puts "There are #{companies.length} organizations to filter"
 puts ''
-categories = %w[name]
-categ_list = %w[website_url category contact_email contact_method description twitter_url topic_tags technology_tags
-                proposal_tags ideas_list]
-categ_select = nil
 until categ_select == "\n"
   break if categ_list.empty?
 
@@ -42,4 +43,9 @@ until categ_select == "\n"
     puts "Invalid value, please enter a number between 1 and #{categ_list.length}"
     puts ''
   end
+end
+
+companies.each do |company|
+  classifier = Classifier.new(company)
+  comp_dictionary << classifier.dictionary(categories)
 end
