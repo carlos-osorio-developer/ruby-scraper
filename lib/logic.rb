@@ -65,12 +65,21 @@ class Classifier
 end
 
 class Filter
-  attr_reader :all_companies
-  attr_accessor :filtered_companies
+  attr_reader :company
+  attr_accessor :filter
 
-  def initialize(companies)
-    @all_companies = companies
-    @filtered_companies = []
+  def initialize(company)
+    @company = company
+    @filter = false
+  end
+
+  def finder(keyword, category = nil)
+    if category.nil?
+      @filter = true if company.any? { |_key, value| value.include?(keyword) }
+    elsif company.any? { |_key, _value| @company[category.to_sym].include?(keyword) }
+      @filter = true
+    end
+    @filter
   end
 end
 # rubocop: enable Layout/LineLength
