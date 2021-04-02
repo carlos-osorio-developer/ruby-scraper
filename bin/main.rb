@@ -51,13 +51,32 @@ companies.each do |company|
   comp_dictionary << classifier.dictionary(categories)
 end
 
-until quit_user == 'Y' || quit_user == 'y'
+until %w[Y y].include?(quit_user)
+  filtered_dictionary = []
   puts ''
   puts 'Add a keyword to filter results'
   filter_keyword = gets.chomp
+  filter_keyword1 = filter_keyword.downcase
+  filter_keyword2 = filter_keyword.capitalize
   categories.each_with_index { |item, index| puts "Enter #{index + 1} to add \"#{item}\" category" }
   puts ''
   puts 'Add a category to search for the keyword, or press enter to search on every category'
   usr_filter_categ = gets
-  usr_filter_categ == "\n" ? filter_categ = categories : filter_categ = usr_filter_categ.chomp.to_i
+  filter_categ = usr_filter_categ == "\n" ? nil : usr_filter_categ.chomp.to_i
+  if filter_categ.is_a?(Integer) && filter_categ.between?(1, categories.length)
+    filter_categ = categories[filter_categ - 1]
+    puts "Filtering for \"#{filter_keyword}\" in \"#{filter_categ}\" category"
+    comp_dictionary.each do |company|
+      boolean_filter = Filter.new(company)
+      if boolean_filter.finder(filter_keyword1, filter_categ) || boolean_filter.finder(filter_keyword2, filter_categ)
+        filtered_dictionary << company
+      end
+    end
+  elsif filter_categ.nil?
+    puts "Filtering for \"#{filter_keyword}\" in every category"
+    comp_dictionary.each do |company|
+      boolean_filter = Filter.new(company)
+      filtered_dictionary << company if boolean_filter.finder(filter_keyword1) || boolean_filter.finder(filter_keyword2)
+    end
+  end
 end
