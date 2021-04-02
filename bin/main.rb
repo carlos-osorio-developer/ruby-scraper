@@ -10,6 +10,7 @@ categories = %w[name]
 categ_list = %w[website_url category contact_email contact_method description twitter_url topic_tags technology_tags
                 proposal_tags ideas_list]
 categ_select = nil
+quit_user = false
 5.times do |page|
   current_page = Scraper.new(page + 1)
   companies += current_page.into_array
@@ -48,4 +49,15 @@ end
 companies.each do |company|
   classifier = Classifier.new(company)
   comp_dictionary << classifier.dictionary(categories)
+end
+
+until quit_user == 'Y' || quit_user == 'y'
+  puts ''
+  puts 'Add a keyword to filter results'
+  filter_keyword = gets.chomp
+  categories.each_with_index { |item, index| puts "Enter #{index + 1} to add \"#{item}\" category" }
+  puts ''
+  puts 'Add a category to search for the keyword, or press enter to search on every category'
+  usr_filter_categ = gets
+  usr_filter_categ == "\n" ? filter_categ = categories : filter_categ = usr_filter_categ.chomp.to_i
 end
