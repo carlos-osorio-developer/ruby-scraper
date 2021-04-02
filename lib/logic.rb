@@ -75,9 +75,9 @@ class Filter
 
   def finder(keyword, category = nil)
     if category.nil?
-      @filter = true if @company.any? { |_key, value| value.include?(keyword.downcase) } || @company.any? { |_key, value| value.include?(keyword.capitalize) }
-    else 
-      @filter = true if @company.any? { @company[category.to_sym].include?(keyword.downcase) } || @company.any? { @company[category.to_sym].include?(keyword.capitalize) }
+      @filter = true if @company.any? { |_key, value| value.include?(keyword) }
+    elsif @company.any? { @company[category.to_sym].include?(keyword) }
+      @filter = true
     end
     @filter
   end
