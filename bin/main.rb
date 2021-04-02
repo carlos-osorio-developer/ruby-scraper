@@ -54,7 +54,7 @@ end
 until %w[Y y].include?(quit_user)
   filtered_dictionary = []
   puts ''
-  puts 'Add a keyword to filter results'
+  puts 'Add a keyword to search and filter the results'
   filter_keyword = gets.chomp
   filter_keyword1 = filter_keyword.downcase
   filter_keyword2 = filter_keyword.capitalize
@@ -77,6 +77,13 @@ until %w[Y y].include?(quit_user)
     comp_dictionary.each do |company|
       boolean_filter = Filter.new(company)
       filtered_dictionary << company if boolean_filter.finder(filter_keyword1) || boolean_filter.finder(filter_keyword2)
+    end
+  end
+  filtered_dictionary.each_with_index do |filtered_company, index|
+    puts ''
+    puts "Result number #{index + 1}: "
+    filtered_company.each do |key, value|
+      puts "     #{key.to_s.capitalize} : " + value
     end
   end
 end
