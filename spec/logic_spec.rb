@@ -1,4 +1,6 @@
-require_relative '../lib/logic'
+require_relative '../lib/scraper'
+require_relative '../lib/filter'
+require_relative '../lib/classifier'
 
 describe Scraper do
   let(:page) { Scraper.new(5) }
