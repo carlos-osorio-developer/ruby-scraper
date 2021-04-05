@@ -17,15 +17,6 @@ end
 
 describe Classifier do
   let(:test_array) { Classifier.new('"id":info1,"name":info2,"website_url":info3,"category":info4,') }
-  describe '#extractor' do
-    it 'extracts the information between two tags' do
-      expect(test_array.extractor('id')).to eql('info1')
-    end
-
-    it 'returns an error if the input is not a string' do
-      expect(test_array.extractor(['id'])).to_not eql('info1')
-    end
-  end
 
   describe '#dictionary' do
     it 'returns a hash with the extracted data' do
