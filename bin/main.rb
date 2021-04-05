@@ -1,4 +1,6 @@
-require_relative '../lib/logic'
+require_relative '../lib/scraper'
+require_relative '../lib/filter'
+require_relative '../lib/classifier'
 puts ''
 puts 'Welcome to SummerOfCodeWithGoogle scraper'
 puts ''
