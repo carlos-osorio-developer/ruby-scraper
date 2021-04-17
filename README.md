@@ -23,7 +23,7 @@
 ## Installation
 
 1. Run the following command into your terminal: </br> 
-```git clone git@github.com:carlos-osorio-developer/ruby-scrapper.git ``` 
+```git clone git@github.com:carlos-osorio-developer/ruby-scraper.git ``` 
 
 2. Make sure you have Ruby installed on your computer
 
