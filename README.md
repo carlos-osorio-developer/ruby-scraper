@@ -1,5 +1,3 @@
-![](https://img.shields.io/badge/Microverse-blueviolet)
-
 # Ruby-Scraper
 
 ## Description
@@ -75,7 +73,6 @@ Give a ⭐️ if you like this project!
 ## Acknowledgments
 
 - Project originally taken from The Odin Project
-- Project inspired by Microverse Program
 
 ## 📝 License
 
